@@ -1,3 +1,12 @@
 language: node_js
 node_js:
   - "7.8"
+sudo: required
+
+services:
+  - docker
+  
+before_install:
+  - docker build -t sgit/testnode .
+  - docker run -p 49160:8080 -d palg/testapp
+  
