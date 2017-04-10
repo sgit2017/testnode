@@ -8,5 +8,5 @@ services:
   
 before_install:
   - docker build -t sgit/testnode .
-  - docker run -p 49160:8080 -d palg/testapp
+  - docker run -p 49160:8080 -d sgit/testnode
   
