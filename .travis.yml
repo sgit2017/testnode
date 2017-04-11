@@ -12,7 +12,7 @@ install:
 script:
   - echo "none"
   
-after_sucess:
+after_success:
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
   - eval $(aws ecr get-login --region us-east-1)
