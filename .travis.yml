@@ -10,7 +10,7 @@ install:
   - echo "nothing to install"
 
 script:
-  - echo "none"
+  - echo "nothing"
   
 after_success:
   - pip install --user awscli
