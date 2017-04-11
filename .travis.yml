@@ -6,7 +6,17 @@ sudo: required
 services:
   - docker
   
-before_install:
-  - docker build -t sgit/testnode .
-  - docker run -p 49160:8080 -d sgit/testnode
+install:
+  - echo "nothing to install"
+
+script:
+  - echo "none"
+  
+after_sucess:
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
+  - eval $(aws ecr get-login --region us-east-1)
+  - docker build -t hwd .
+  - docker tag hwd:latest 511553801008.dkr.ecr.us-east-1.amazonaws.com/hwd:latest
+  - docker push 511553801008.dkr.ecr.us-east-1.amazonaws.com/hwd:latest
   
