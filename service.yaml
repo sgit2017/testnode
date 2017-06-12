@@ -41,20 +41,35 @@ Resources:
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
       LoadBalancers:
-        - ContainerName: hwd-app
-          ContainerPort: 8080
+        - ContainerName: simple-app
+          ContainerPort: 80
           TargetGroupArn: !Ref TargetGroup
 
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Family: !Sub ${AWS::StackName}-hwd-app
+      Family: !Sub ${AWS::StackName}-simple-app
       ContainerDefinitions:
-        - Name: hwd-app
+        - Name: simple-app
           Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${Repository}:${Tag}
-          EntryPoint:
           Essential: true
           Memory: 128
           PortMappings:
             - ContainerPort: 8080
-              hostPort:80
+              hostPort: 80
+          Environment:
+            - Name: Tag
+              Value: !Ref Tag
+        - Name: busybox
+          Image: busybox
+          EntryPoint:
+            - sh
+            - -c
+          Essential: false
+          Memory: 128
+          VolumesFrom:
+            - SourceContainer: simple-app
+          Command:
+            - /bin/sh -c "while true; do /bin/date > /var/www/my-vol/date; sleep 1; done"
+      Volumes:
+        - Name: my-vol
