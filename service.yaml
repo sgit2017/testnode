@@ -1,0 +1,17 @@
+taskdefinition:
+  Type: 'AWS::ECS::TaskDefinition'
+  Properties:
+    family: hwdtestdefinition
+    volumes: []
+    containerDefinitions:
+      - environment: []
+        name: hwdcontainer1
+        image: '511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:latest'
+        cpu: 10
+        memory: 500
+        portMappings:
+          - containerPort: 8080
+            hostPort: 80
+        mountPoints: []
+        entryPoint: null
+        essential: true
