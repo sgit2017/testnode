@@ -42,7 +42,7 @@ Resources:
       TaskDefinition: !Ref TaskDefinition
       LoadBalancers:
         - ContainerName: simple-app
-          ContainerPort: 80
+          ContainerPort: 8080
           TargetGroupArn: !Ref TargetGroup
 
   TaskDefinition:
@@ -55,7 +55,7 @@ Resources:
           Essential: true
           Memory: 128
           PortMappings:
-            - ContainerPort: 80
+            - ContainerPort: 8080
           Environment:
             - Name: Tag
               Value: !Ref Tag
