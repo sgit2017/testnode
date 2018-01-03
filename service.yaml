@@ -36,7 +36,7 @@ Resources:
   Service:
     Type: AWS::ECS::Service
     Properties:
-      Cluster: !Ref Cluster
+      Cluster: devcluster
       Role: !Ref ECSServiceRole
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
@@ -44,10 +44,10 @@ Resources:
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Family: !Sub ${AWS::StackName}-testtaskdef
+      Family: testtaskdef
       ContainerDefinitions:
-        - Name: testaskdef
-          Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${Repository}:${Tag}
+        - Name: testaskcontainer
+          Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/hwdtest:${Tag}
           Essential: true
           Memory: 128
           PortMappings:
