@@ -5,7 +5,7 @@ Parameters:
 
   DesiredCount:
     Type: Number
-    Default: 0
+    Default: 1
 
   TargetGroup:
     Type: String
@@ -40,22 +40,19 @@ Resources:
       Role: !Ref ECSServiceRole
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
-      LoadBalancers:
-        - ContainerName: simple-app
-          ContainerPort: 8080
-          TargetGroupArn: !Ref TargetGroup
-
+   
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Family: !Sub ${AWS::StackName}-simple-app
+      Family: !Sub ${AWS::StackName}-testtaskdef
       ContainerDefinitions:
-        - Name: simple-app
+        - Name: testaskdef
           Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${Repository}:${Tag}
           Essential: true
           Memory: 128
           PortMappings:
             - ContainerPort: 8080
+            - hostPort: 80
           Environment:
             - Name: Tag
               Value: !Ref Tag
