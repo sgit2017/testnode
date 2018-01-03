@@ -42,7 +42,7 @@ Resources:
           Memory: 128
           PortMappings:
             - ContainerPort: 8080
-            - hostPort: 80
+            - HostPort: 80
           Environment:
             - Name: Tag
               Value: !Ref Tag
