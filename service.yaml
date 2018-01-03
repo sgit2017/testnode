@@ -7,16 +7,6 @@ Parameters:
     Type: Number
     Default: 1
 
-  TargetGroup:
-    Type: String
-
-  Cluster:
-    Type: String
-
-  Repository:
-    Type: String
-
-
 Resources:
   ECSServiceRole:
     Type: AWS::IAM::Role
