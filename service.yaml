@@ -27,7 +27,6 @@ Resources:
     Type: AWS::ECS::Service
     Properties:
       Cluster: devcluster
-      Role: !Ref ECSServiceRole
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
    
