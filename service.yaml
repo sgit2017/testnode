@@ -41,8 +41,8 @@ Resources:
           Essential: true
           Memory: 128
           PortMappings:
-            - ContainerPort: 9000
-            - HostPort: 80
+            - ContainerPort: 8080
+              HostPort: 80
           Environment:
             - Name: Tag
               Value: !Ref Tag
