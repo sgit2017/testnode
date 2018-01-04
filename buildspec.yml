@@ -24,6 +24,6 @@ phases:
       - docker push 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:latest
       - docker push 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:$TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"hellocdcontainer","imageUri":"%s"}]' 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:$TAG > imagedefinitions.json
+      - printf '[{"name":"tecontainer","imageUri":"%s"}]' 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:$TAG > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
