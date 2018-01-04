@@ -5,21 +5,21 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region us-west-2)
-      - REPOSITORY=511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest
+      - REPOSITORY_URI=511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest
       - TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build -t $REPOSITORY:latest .
-      - docker tag $REPOSITORY:latest $REPOSITORY:$TAG      
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$TAG      
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push $REPOSITORY:latest
-      - docker push $REPOSITORY:$TAG
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"hellocdcontainer","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"hellocdcontainer","imageUri":"%s"}]' $REPOSITORY_URI:$TAG > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
