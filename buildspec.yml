@@ -5,25 +5,21 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region us-west-2)
-      - REPOSITORY_URI=511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest
+      - REPOSITORY=511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest
       - TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image... 
-      - echo tag1 $TAG
-      - echo tag2 ${TAG}
-      - echo respository $REPOSITORY_URI
-      - echo respository2 ${REPOSITORY_URI}
-      - docker build -t 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:latest .
-      - docker tag 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:latest 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:$TAG      
+      - docker build -t $REPOSITORY:latest .
+      - docker tag $REPOSITORY:latest $REPOSITORY:$TAG      
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:latest
-      - docker push 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:$TAG
+      - docker push $REPOSITORY:latest
+      - docker push $REPOSITORY:$TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"tecontainer","imageUri":"%s"}]' 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:$TAG > imagedefinitions.json
+      - printf '[{"name":"tecontainer","imageUri":"%s"}]' $REPOSITORY:$TAG > containerdefinitions.json
 artifacts:
-    files: imagedefinitions.json
+    files: containerdefinitions.json
