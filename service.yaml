@@ -35,7 +35,7 @@ Resources:
     Properties:
       Family: testtaskdef
       ContainerDefinitions:
-        - Name: tcontainer
+        - Name: tecontainer
           Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/hwdtest:${Tag}
           Essential: true
           Memory: 128
