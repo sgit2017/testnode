@@ -5,7 +5,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region us-west-2)
-      - $REPOSITORY=511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest
+      - REPOSITORY=511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest
       - TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
   build:
     commands:
