@@ -11,15 +11,15 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build -t $REPOSITORY_URI:latest .
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$TAG      
+      - docker build -t 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:latest .
+      - docker tag 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:latest 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:$TAG      
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push $REPOSITORY_URI:latest
-      - docker push $REPOSITORY_URI:$TAG
+      - docker push 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:latest
+      - docker push 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:$TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"hellocdcontainer","imageUri":"%s"}]' $REPOSITORY_URI:$TAG > imagedefinitions.json
+      - printf '[{"name":"hellocdcontainer","imageUri":"%s"}]' 511553801008.dkr.ecr.us-west-2.amazonaws.com/hwdtest:$TAG > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
